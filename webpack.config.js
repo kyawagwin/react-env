@@ -1,17 +1,17 @@
-const webpack = require("webpack");
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-    template: "./client/index.html",
-    filename: "index.html",
-    inject: "body"
+    template: './client/index.html',
+    filename: 'index.html',
+    inject: 'body'
 });
 
 const ReactBuildConfig = new webpack.DefinePlugin({
     'process.env': {
-    NODE_ENV: JSON.stringify('production')
+        NODE_ENV: JSON.stringify('production')
     }
 });
 
@@ -22,16 +22,25 @@ const UglifyJsPluginsConfig = new webpack.optimize.UglifyJsPlugin({
 });
 
 module.exports = {
-    entry: "./client/index.js",
+    entry: './client/index.js',
     output: {
-        path: path.resolve("dist"),
-        filename: "index_bundle.js"
+        path: path.resolve('dist'),
+        filename: 'index_bundle.js'
     },
     module: {
-        loaders: [
-            { test: /\.(js|jsx)$/, loader: "babel-loader", exclude: /node_modules/ },
-            { test: /\.(png|jpg)$/, loader: "file-loader?limit=25000" },
-            { test:/\.css$/, use: [ 'style-loader', 'css-loader' ] }
+        loaders: [{
+                test: /\.(js|jsx)$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/
+            },
+            {
+                test: /\.(png|jpg|ico)$/,
+                loader: 'file-loader?limit=25000'
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            }
         ]
     },
     stats: {
